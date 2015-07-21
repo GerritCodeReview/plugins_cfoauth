@@ -25,6 +25,46 @@
     },
     {
       "key": {
+        "uuid": "0df5e23c_bf74d7c2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-07-21T12:28:08Z",
+      "side": 1,
+      "message": "In most of the Gerrit code we have just 1L. Is there any reason not to follow this convention?",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 21,
+        "endChar": 66
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df5e23c_1f3d03ea",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-07-21T12:28:08Z",
+      "side": 1,
+      "message": "nit: start the text in the next line",
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_5fdf0b51",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -48,6 +88,46 @@
     },
     {
       "key": {
+        "uuid": "0df5e23c_3f38c7f9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-07-21T12:28:08Z",
+      "side": 1,
+      "message": "possible NPE?\n\nLooking at the equals method (line 119) it is allowed that this.value can be null. A hashCode based on a field which can be null will not distribute the hash codes well as all null values will have the same hash code.",
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df5e23c_5f438b69",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-07-21T12:28:08Z",
+      "side": 1,
+      "message": "nit: Gerrit\u0027s coding convention requires usage of curly braces even for single statement blocks",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_1fd98369",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -59,6 +139,30 @@
       "writtenOn": "2015-07-21T08:45:44Z",
       "side": 1,
       "message": "[optional] Just write:\n\n  return Objects.equals(value, other.value);",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 37
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edfb2e32_1e3d0dea",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-07-21T12:28:08Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "0df5e23c_1fd98369",
       "range": {
         "startLine": 119,
         "startChar": 4,
