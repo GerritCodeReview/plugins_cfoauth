@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "edfb2e32_fe514130",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T12:31:38Z",
+      "side": 1,
+      "message": "Use\n\n  Objects.hash(value):\n\n?",
+      "parentUuid": "0df5e23c_3f38c7f9",
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_5f438b69",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
