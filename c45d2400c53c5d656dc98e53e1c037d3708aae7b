@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edfb2e32_9ee47d18",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "This is inconsistent with the commit message which says 2.10.1 and the plugin version in VERSION which says 2.12-SNAPSHOT and the Gerrit-ApiVersion in BUCK which says 2.12-SNAPSHOT.",
+      "range": {
+        "startLine": 3,
+        "startChar": 7,
+        "endLine": 3,
+        "endChar": 11
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df5e23c_5fdf0b51",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "Use the AccountExternalId.SCHEME_EXTERNAL constant.",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df5e23c_1fd98369",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "[optional] Just write:\n\n  return Objects.equals(value, other.value);",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 37
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df5e23c_dfeafbe5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "Use HttpServletResponse.SC_OK",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edfb2e32_5e06f55a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 223,
+        "startChar": 30,
+        "endLine": 223,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edfb2e32_3e0b2963",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T08:45:44Z",
+      "side": 1,
+      "message": "Why not UTF_8 here too?",
+      "range": {
+        "startLine": 278,
+        "startChar": 62,
+        "endLine": 278,
+        "endChar": 70
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
