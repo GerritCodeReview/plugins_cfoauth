@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2db546ac_88e7771c",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Changed all versions to 2.12-SNAPSHOT",
+      "parentUuid": "edfb2e32_9ee47d18",
+      "range": {
+        "startLine": 3,
+        "startChar": 7,
+        "endLine": 3,
+        "endChar": 11
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_bf74d7c2",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-21T12:28:08Z",
       "side": 1,
       "message": "In most of the Gerrit code we have just 1L. Is there any reason not to follow this convention?",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 21,
+        "endChar": 66
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2db546ac_48dadf62",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "There was no reason for this class to be serializable at all; removed the serialVersionUID and the implements clause",
+      "parentUuid": "0df5e23c_bf74d7c2",
       "range": {
         "startLine": 21,
         "startChar": 47,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "6d59fe72_fad06943",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "This constant and the private constructor were never used; removed both",
+      "parentUuid": "0df5e23c_1f3d03ea",
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_5fdf0b51",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -76,6 +142,30 @@
       "writtenOn": "2015-07-21T08:45:44Z",
       "side": 1,
       "message": "Use the AccountExternalId.SCHEME_EXTERNAL constant.",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2db546ac_c8ed6f00",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df5e23c_5fdf0b51",
       "range": {
         "startLine": 50,
         "startChar": 22,
@@ -123,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "2db546ac_e8eab3e5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Access token with value\u003d\u003dnull make no sense at all; added a check in the constructor to ensure value!\u003dnull",
+      "parentUuid": "0df5e23c_3f38c7f9",
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_5f438b69",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -134,6 +242,30 @@
       "writtenOn": "2015-07-21T12:28:08Z",
       "side": 1,
       "message": "nit: Gerrit\u0027s coding convention requires usage of curly braces even for single statement blocks",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2db546ac_68dfa351",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df5e23c_5f438b69",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -193,6 +325,30 @@
     },
     {
       "key": {
+        "uuid": "6d59fe72_dacda5a9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df5e23c_1fd98369",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 37
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df5e23c_dfeafbe5",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
         "patchSetId": 1
@@ -204,6 +360,30 @@
       "writtenOn": "2015-07-21T08:45:44Z",
       "side": 1,
       "message": "Use HttpServletResponse.SC_OK",
+      "range": {
+        "startLine": 117,
+        "startChar": 30,
+        "endLine": 117,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2db546ac_a8cd9ba9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Done, but using constants from java.net.HttpURLConnection",
+      "parentUuid": "0df5e23c_dfeafbe5",
       "range": {
         "startLine": 117,
         "startChar": 30,
@@ -239,6 +419,30 @@
     },
     {
       "key": {
+        "uuid": "6d59fe72_9ac32d7d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edfb2e32_5e06f55a",
+      "range": {
+        "startLine": 223,
+        "startChar": 30,
+        "endLine": 223,
+        "endChar": 33
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edfb2e32_3e0b2963",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
         "patchSetId": 1
@@ -250,6 +454,30 @@
       "writtenOn": "2015-07-21T08:45:44Z",
       "side": 1,
       "message": "Why not UTF_8 here too?",
+      "range": {
+        "startLine": 278,
+        "startChar": 62,
+        "endLine": 278,
+        "endChar": 70
+      },
+      "revId": "c45d2400c53c5d656dc98e53e1c037d3708aae7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d59fe72_bac6f18c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-07-22T10:56:46Z",
+      "side": 1,
+      "message": "The result of a base64 encoding is supposed to be US_ASCII.\n\nIt does not really matter, though, since US_ASCII and UTF_8 are the same for characters \u003c \u0026x7F",
+      "parentUuid": "edfb2e32_3e0b2963",
       "range": {
         "startLine": 278,
         "startChar": 62,
