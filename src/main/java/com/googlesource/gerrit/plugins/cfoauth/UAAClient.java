@@ -44,6 +44,7 @@ class UAAClient {
       + "authorize?response_type=code&client_id=%s&redirect_uri=%s";
   private static final String TOKEN_ENDPOINT = OAUTH_ENDPOINT + "token";
   private static final String TOKEN_KEY_ENDPOINT = "%s/token_key";
+  private static final String USERINFO_ENDPOINT = "%s/userinfo";
 
   private static final String GRANT_TYPE = "grant_type";
   private static final String BY_AUTHORIZATION_CODE = "authorization_code";
@@ -56,9 +57,11 @@ class UAAClient {
   private static final String EXP_ATTRIBUTE = "exp";
   private static final String USER_NAME_ATTRIBUTE = "user_name";
   private static final String EMAIL_ATTRIBUTE = "email";
+  private static final String NAME_ATTRIBUTE = "name";
 
   private static final String AUTHORIZATION_HEADER = "Authorization";
   private static final String BASIC_AUTHENTICATION = "Basic";
+  private static final String BEARER_AUTHENTICATION = "Bearer";
 
   private final String clientCredentials;
   private final String redirectUrl;
@@ -66,6 +69,7 @@ class UAAClient {
   private final String authorizationEndpoint;
   private final String accessTokenEndpoint;
   private final String tokenKeyEndpoint;
+  private final String userInfoEndpoint;
 
   private final boolean verifySignatures;
 
@@ -88,6 +92,7 @@ class UAAClient {
         uaaServerUrl, encode(clientId), encode(redirectUrl));
     this.accessTokenEndpoint = String.format(TOKEN_ENDPOINT, uaaServerUrl);
     this.tokenKeyEndpoint = String.format(TOKEN_KEY_ENDPOINT, uaaServerUrl);
+    this.userInfoEndpoint = String.format(USERINFO_ENDPOINT, uaaServerUrl);
   }
 
   /**
@@ -148,6 +153,29 @@ class UAAClient {
           "Invalid token: missing or invalid 'email' attribute");
     }
     return new AccessToken(accessToken, username, emailAddress, expiresAt);
+  }
+
+  /**
+   * Retrieves the display name of the access token owner.
+   * This method queries the <tt>/userinfo</tt> endpoint of the
+   * UAA server and requires the scope <tt>openid</tt>.
+   *
+   * @param accessToken the access token.
+   * @return the display name of the access token owner.
+   *
+   * @throws UAAClientException if the UAA request failed.
+   */
+  public String getDisplayName(String accessToken) {
+    OAuthRequest request = new OAuthRequest(GET, userInfoEndpoint);
+    request.addHeader(AUTHORIZATION_HEADER,
+        BEARER_AUTHENTICATION + " " + accessToken);
+    Response response = request.send();
+    if (response.getCode() != HTTP_OK) {
+      throw new UAAClientException(MessageFormat.format(
+          "GET /userinfo failed with status {0}", response.getCode()));
+    }
+    JsonObject userInfoResponse = getAsJsonObject(response.getBody());
+    return getAttribute(userInfoResponse, NAME_ATTRIBUTE);
   }
 
   @VisibleForTesting
