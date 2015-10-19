@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d92002e1_68db03da",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-10-19T20:39:09Z",
+      "side": 1,
+      "message": "I am not sure this is the correct place to protect against null. This is not a public API and all callers are from this project... and a project shouldn\u0027t protect itself from itself.\n\nHowever, the calling method CFOAuthService.getAccessToken could check if the rv.getValue() is null as call is coming from outside of this project and the OAuthServiceProvider.getAccessToken javadoc is not telling anything about the null value of its input parameter.\n\nProtecting the CFOAuthService.getAccessToken also means failing as early as possible.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "53b5cd2796e618cafec73675ae8f940f6905c22a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d92002e1_48e0bf80",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-10-19T20:39:09Z",
+      "side": 1,
+      "message": "same here... this method is only used from this project and doesn\u0027t need a protection. Protect the caller in CFOAuthService.getUserInfo.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "53b5cd2796e618cafec73675ae8f940f6905c22a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
