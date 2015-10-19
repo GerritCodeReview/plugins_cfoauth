@@ -174,8 +174,9 @@ public class UAAClientTest {
   private void assertHS266AccessToken(AccessToken accessToken) {
     assertEquals(HS256_TEST_TOKEN, accessToken.getValue());
     assertEquals(1436232932L, accessToken.getExpiresAt());
-    assertEquals("external:marissa", accessToken.getExternalId());
-    assertEquals("marissa", accessToken.getUserName());
-    assertEquals("marissa@test.org", accessToken.getEmailAddress());
+    UserInfo userInfo = accessToken.getUserInfo();
+    assertEquals("external:marissa", userInfo.getExternalId());
+    assertEquals("marissa", userInfo.getUserName());
+    assertEquals("marissa@test.org", userInfo.getEmailAddress());
   }
 }
