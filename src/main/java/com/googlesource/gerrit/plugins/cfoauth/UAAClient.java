@@ -190,44 +190,41 @@ class UAAClient {
   @VisibleForTesting
   AccessToken parseAccessTokenResponse(String tokenResponse)
       throws UAAClientException {
-    if (Strings.isNullOrEmpty(tokenResponse)) {
-      throw new UAAClientException(
-          "Can't extract a token from an empty string");
-    }
-    JsonObject json = getAsJsonObject(tokenResponse);
-    String accessToken = getAttribute(json, ACCESS_TOKEN_ATTRIBUTE);
-    if (accessToken == null) {
-      throw new UAAClientException(
-          "Can't extract a token: missing or invalid 'access_token' attribute");
-    }
-    return toAccessToken(accessToken);
+    return toAccessToken(getAccessTokenAttribute(tokenResponse));
   }
 
   @VisibleForTesting
-  JsonObject toJsonWebToken(String accessToken)
-      throws UAAClientException {
+  JsonObject toJsonWebToken(String accessToken) throws UAAClientException {
+    String[] segments = getSegments(accessToken);
+    if (verifySignatures) {
+      verifySignature(segments);
+    }
+    return getAsJsonObject(decodeBase64(segments[1]));
+  }
+
+  private String[] getSegments(String accessToken) throws UAAClientException {
     String[] segments = accessToken.split("\\.");
     if (segments.length != 3) {
       throw new UAAClientException(
           "Invalid token: must be of the form 'header.token.signature'");
     }
-    String claims = decodeBase64(segments[1]);
-    if (verifySignatures) {
-      String header = decodeBase64(segments[0]);
-      String alg = getAttribute(getAsJsonObject(header), ALG_ATTRIBUTE);
-      if (Strings.isNullOrEmpty(alg)) {
-        throw new UAAClientException("Invalid token: missing \"alg\" attribute");
-      }
-      String signature = segments[2];
-      String signedContent = segments[0] + "." + segments[1];
-      verifySignature(signedContent, signature, alg);
+    return segments;
+  }
+
+  private void verifySignature(String[] segments) throws UAAClientException {
+    String header = decodeBase64(segments[0]);
+    String alg = getAttribute(getAsJsonObject(header), ALG_ATTRIBUTE);
+    if (Strings.isNullOrEmpty(alg)) {
+      throw new UAAClientException("Invalid token: missing \"alg\" attribute");
     }
-    return getAsJsonObject(claims);
+    String signature = segments[2];
+    String signedContent = segments[0] + "." + segments[1];
+    verifySignature(signedContent, signature, alg);
   }
 
   @VisibleForTesting
-  void verifySignature(String signedContent, String signature,
-      String alg) throws UAAClientException {
+  void verifySignature(String signedContent, String signature, String alg)
+      throws UAAClientException {
     SignatureVerifier verifier = getSignatureVerifier(alg, false);
     if (!verifier.verify(signedContent, signature)) {
       // If the signature is invalid, maybe the secret has changed
@@ -284,6 +281,21 @@ class UAAClient {
   String getAttribute(JsonObject json, String name) {
     JsonPrimitive prim = getAsJsonPrimitive(json, name);
     return prim != null && prim.isString() ? prim.getAsString() : null;
+  }
+
+  private String getAccessTokenAttribute(String tokenResponse)
+      throws UAAClientException {
+    if (Strings.isNullOrEmpty(tokenResponse)) {
+      throw new UAAClientException(
+          "Can't extract a token from an empty string");
+    }
+    JsonObject json = getAsJsonObject(tokenResponse);
+    String accessToken = getAttribute(json, ACCESS_TOKEN_ATTRIBUTE);
+    if (accessToken == null) {
+      throw new UAAClientException(
+          "Can't extract a token: missing or invalid 'access_token' attribute");
+    }
+    return accessToken;
   }
 
   @VisibleForTesting
