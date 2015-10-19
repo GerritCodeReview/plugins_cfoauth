@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.cfoauth;
 
+import static com.googlesource.gerrit.plugins.cfoauth.JsonUtils.*;
+
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -25,10 +27,7 @@ import static org.scribe.utils.OAuthEncoder.encode;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 
 import org.apache.commons.codec.binary.Base64;
 import org.scribe.model.OAuthRequest;
@@ -277,12 +276,6 @@ class UAAClient {
         "Unsupported signature algorithm ''{0}''", alg));
   }
 
-  @VisibleForTesting
-  String getAttribute(JsonObject json, String name) {
-    JsonPrimitive prim = getAsJsonPrimitive(json, name);
-    return prim != null && prim.isString() ? prim.getAsString() : null;
-  }
-
   private String getAccessTokenAttribute(String tokenResponse)
       throws UAAClientException {
     if (Strings.isNullOrEmpty(tokenResponse)) {
@@ -296,28 +289,6 @@ class UAAClient {
           "Can't extract a token: missing or invalid 'access_token' attribute");
     }
     return accessToken;
-  }
-
-  @VisibleForTesting
-  long getLongAttribute(JsonObject json, String name, long defaultValue) {
-    JsonPrimitive prim = getAsJsonPrimitive(json, name);
-    return prim != null && prim.isNumber() ? prim.getAsLong() : defaultValue;
-  }
-
-  private JsonPrimitive getAsJsonPrimitive(JsonObject json, String name) {
-    JsonElement attr = json.get(name);
-    if (attr == null || !attr.isJsonPrimitive()) {
-      return null;
-    }
-    return attr.getAsJsonPrimitive();
-  }
-
-  private JsonObject getAsJsonObject(String s) {
-    JsonElement json = new JsonParser().parse(s);
-    if (!json.isJsonObject()) {
-      return new JsonObject();
-    }
-    return json.getAsJsonObject();
   }
 
   private String decodeBase64(String s) {

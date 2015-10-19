@@ -15,14 +15,10 @@
 package com.googlesource.gerrit.plugins.cfoauth;
 
 import static org.junit.Assert.*;
+import static com.googlesource.gerrit.plugins.cfoauth.JsonUtils.getAttribute;
+import static com.googlesource.gerrit.plugins.cfoauth.JsonUtils.getLongAttribute;
 
 import com.google.gson.JsonObject;
-
-import com.googlesource.gerrit.plugins.cfoauth.AccessToken;
-import com.googlesource.gerrit.plugins.cfoauth.HMACSHA256SignatureVerifier;
-import com.googlesource.gerrit.plugins.cfoauth.SignatureVerifier;
-import com.googlesource.gerrit.plugins.cfoauth.UAAClient;
-import com.googlesource.gerrit.plugins.cfoauth.UAAClientException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -110,9 +106,9 @@ public class UAAClientTest {
   @Test
   public void testToJsonWebToken() throws Exception {
     JsonObject jsonWebToken = client.toJsonWebToken(HS256_TEST_TOKEN);
-    assertEquals("marissa", client.getAttribute(jsonWebToken, "user_name"));
-    assertEquals("marissa@test.org", client.getAttribute(jsonWebToken, "email"));
-    assertEquals(1436232932L, client.getLongAttribute(jsonWebToken, "exp", 0));
+    assertEquals("marissa", getAttribute(jsonWebToken, "user_name"));
+    assertEquals("marissa@test.org", getAttribute(jsonWebToken, "email"));
+    assertEquals(1436232932L, getLongAttribute(jsonWebToken, "exp", 0));
   }
 
   @Test(expected = UAAClientException.class)
