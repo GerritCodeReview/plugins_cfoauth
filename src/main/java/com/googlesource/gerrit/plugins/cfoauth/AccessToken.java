@@ -14,18 +14,25 @@
 
 package com.googlesource.gerrit.plugins.cfoauth;
 
-import com.google.gerrit.reviewdb.client.AccountExternalId;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-class AccessToken {
+class AccessToken implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
+  private final UserInfo userInfo;
   private final String value;
-
-  private final String externalId;
-  private final String username;
-  private final String emailAddress;
   private final long expiresAt;
+
+  /** Representation of an undefined access token, which
+   * has no owner and no value.
+   */
+  public static final AccessToken UNDEFINED = new AccessToken();
+
+  private AccessToken() {
+    this("", "", "", 0);
+  }
 
   /**
    * Creates an access token.
@@ -41,16 +48,8 @@ class AccessToken {
     if (value == null) {
       throw new IllegalArgumentException("token value must not be null");
     }
-    if (username == null) {
-      throw new IllegalArgumentException("username must not be null");
-    }
-    if (emailAddress == null) {
-      throw new IllegalArgumentException("emailAddress must not be null");
-    }
+    this.userInfo = new UserInfo(username, emailAddress);
     this.value = value;
-    this.username = username;
-    this.externalId = AccountExternalId.SCHEME_EXTERNAL + username;
-    this.emailAddress = emailAddress;
     this.expiresAt = expiresAt;
   }
 
@@ -59,27 +58,6 @@ class AccessToken {
    */
   public String getValue() {
     return value;
-  }
-
-  /**
-   * Returns the external id of the token owner.
-   */
-  public String getExternalId() {
-    return externalId;
-  }
-
-  /**
-   * Returns the name of the token owner.
-   */
-  public String getUserName() {
-    return username;
-  }
-
-  /**
-   * Returns the email address of the token owner.
-   */
-  public String getEmailAddress() {
-    return emailAddress;
   }
 
   /**
@@ -97,18 +75,65 @@ class AccessToken {
     return System.currentTimeMillis() > expiresAt * 1000;
   }
 
+  /**
+   * Returns information about the token owner.
+   */
+  public UserInfo getUserInfo() {
+    return userInfo;
+  }
+
+  /**
+   * Returns the external id of the token owner.
+   */
+  public String getExternalId() {
+    return userInfo.getExternalId();
+  }
+
+  /**
+   * Returns the name of the token owner.
+   */
+  public String getUserName() {
+    return userInfo.getUserName();
+  }
+
+  /**
+   * Returns the email address of the token owner.
+   */
+  public String getEmailAddress() {
+    return userInfo.getEmailAddress();
+  }
+
+  /**
+   * Returns the display name of the token owner.
+   */
+  public String getDisplayName() {
+    return userInfo.getDisplayName();
+  }
+
+  /**
+   * Sets the display name of the token owner.
+   *
+   * @param displayName the display name of the token owner or
+   * <code>null</code>. In that case {@link #getUserName()}
+   * will be assigned.
+   */
+  public void setDisplayName(String displayName) {
+    userInfo.setDisplayName(displayName);
+  }
+
   @Override
   public String toString() {
     return "{'value':'" + value
-        + "','externalId':'" + externalId
-        + "','userName':'" + username
-        + "','emailAddress':'" + emailAddress
+        + "','externalId':'" + userInfo.getExternalId()
+        + "','username':'" + userInfo.getUserName()
+        + "','emailAddress':'" + userInfo.getEmailAddress()
+        + "','displayName':'" + userInfo.getDisplayName()
         + "','expiresAt':" + expiresAt + "}";
   }
 
   @Override
   public int hashCode() {
-    return value.hashCode();
+    return Objects.hash(value, expiresAt, userInfo);
   }
 
   @Override
@@ -119,6 +144,9 @@ class AccessToken {
     if (!(obj instanceof AccessToken)) {
       return false;
     }
-    return Objects.equals(value, ((AccessToken) obj).value);
+    AccessToken accessToken = (AccessToken) obj;
+    return value.equals(accessToken.value) &&
+        expiresAt == accessToken.expiresAt &&
+        userInfo.equals(accessToken.userInfo);
   }
 }
