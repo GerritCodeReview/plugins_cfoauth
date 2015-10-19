@@ -20,6 +20,7 @@ import com.google.gerrit.pgm.init.api.ConsoleUI;
 import com.google.gerrit.pgm.init.api.InitFlags;
 import com.google.gerrit.pgm.init.api.InitStep;
 import com.google.gerrit.pgm.init.api.Section;
+import com.google.gerrit.reviewdb.client.AuthType;
 import com.google.inject.Inject;
 
 class InitOAuthConfig implements InitStep {
@@ -47,6 +48,11 @@ class InitOAuthConfig implements InitStep {
 
   @Override
   public void run() throws Exception {
+    AuthType authType =
+        flags.cfg.getEnum(AuthType.values(), "auth", null, "type", null);
+    if (authType != AuthType.OAUTH) {
+      return;
+    }
     ui.header("Cloud Foundry UAA OAuth 2.0 Authentication Provider");
     cfg.string("UAA server URL", SERVER_URL, DEFAULT_SERVER_URL);
     cfg.string("Client id", CLIENT_ID, DEFAULT_CLIENT_ID);
