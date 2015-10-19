@@ -14,8 +14,10 @@
 
 package com.googlesource.gerrit.plugins.cfoauth;
 
+import com.google.common.base.CharMatcher;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.pgm.init.api.ConsoleUI;
+import com.google.gerrit.pgm.init.api.InitFlags;
 import com.google.gerrit.pgm.init.api.InitStep;
 import com.google.gerrit.pgm.init.api.Section;
 import com.google.inject.Inject;
@@ -30,13 +32,15 @@ class InitOAuthConfig implements InitStep {
   static final String DEFAULT_SERVER_URL = "http://localhost:8080/uaa";
   static final String DEFAULT_CLIENT_ID = "gerrit";
 
+  private final InitFlags flags;
   private final ConsoleUI ui;
   private final Section cfg;
 
   @Inject
-  InitOAuthConfig(ConsoleUI ui,
+  InitOAuthConfig(InitFlags flags, ConsoleUI ui,
       Section.Factory sections,
       @PluginName String pluginName) {
+    this.flags = flags;
     this.ui = ui;
     this.cfg = sections.get(PLUGIN_SECTION, pluginName);
   }
@@ -49,6 +53,8 @@ class InitOAuthConfig implements InitStep {
     cfg.passwordForKey("Client secret", CLIENT_SECRET);
     cfg.set(VERIFIY_SIGNATURES, Boolean.toString(
         ui.yesno(true, "Verify token signatures", VERIFIY_SIGNATURES)));
+    flags.cfg.setString("auth", null, "logouturl", CharMatcher.is('/')
+        .trimTrailingFrom(cfg.get(SERVER_URL)) + "/logout.do");
   }
 
   @Override
