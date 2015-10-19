@@ -66,8 +66,9 @@ class CFOAuthService implements OAuthServiceProvider {
   @Override
   public OAuthUserInfo getUserInfo(OAuthToken token) throws IOException {
     AccessToken accessToken = uaaClient.toAccessToken(token.getToken());
-    String displayName = uaaClient.getDisplayName(token.getToken());
-    return getAsOAuthUserInfo(accessToken, displayName);
+    UserInfo userInfo = accessToken.getUserInfo();
+    userInfo.setDisplayName(uaaClient.getDisplayName(token.getToken()));
+    return getAsOAuthUserInfo(userInfo);
   }
 
   @Override
@@ -80,14 +81,13 @@ class CFOAuthService implements OAuthServiceProvider {
     return NAME;
   }
 
-  private OAuthToken getAsOAuthToken(AccessToken accessToken) {
+  private static OAuthToken getAsOAuthToken(AccessToken accessToken) {
     return new OAuthToken(accessToken.getValue(), null, null);
   }
 
-  private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken,
-      String displayName) {
-    return new OAuthUserInfo(accessToken.getExternalId(),
-        accessToken.getUserName(), accessToken.getEmailAddress(),
-        displayName, null);
+  private static OAuthUserInfo getAsOAuthUserInfo(UserInfo userInfo) {
+    return new OAuthUserInfo(userInfo.getExternalId(),
+        userInfo.getUserName(), userInfo.getEmailAddress(),
+        userInfo.getDisplayName(), null);
   }
 }
