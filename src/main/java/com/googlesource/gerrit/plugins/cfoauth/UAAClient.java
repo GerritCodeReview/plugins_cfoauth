@@ -114,6 +114,9 @@ class UAAClient {
    */
   public AccessToken getAccessToken(String authorizationCode)
       throws UAAClientException {
+    if (authorizationCode == null) {
+      throw new UAAClientException("Must provide an authorization code");
+    }
     OAuthRequest request = new OAuthRequest(POST, accessTokenEndpoint);
     request.addHeader(AUTHORIZATION_HEADER, clientCredentials);
     request.addBodyParameter(GRANT_TYPE, BY_AUTHORIZATION_CODE);
@@ -140,6 +143,9 @@ class UAAClient {
    */
   public AccessToken toAccessToken(String accessToken)
       throws UAAClientException {
+    if (accessToken == null) {
+      throw new UAAClientException("Must provide an access token");
+    }
     JsonObject jsonWebToken = toJsonWebToken(accessToken);
     long expiresAt = getLongAttribute(jsonWebToken, EXP_ATTRIBUTE, 0);
     String username = getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE);
@@ -166,6 +172,9 @@ class UAAClient {
    * @throws UAAClientException if the UAA request failed.
    */
   public String getDisplayName(String accessToken) {
+    if (accessToken == null) {
+      throw new UAAClientException("Must provide an access token");
+    }
     OAuthRequest request = new OAuthRequest(GET, userInfoEndpoint);
     request.addHeader(AUTHORIZATION_HEADER,
         BEARER_AUTHENTICATION + " " + accessToken);
