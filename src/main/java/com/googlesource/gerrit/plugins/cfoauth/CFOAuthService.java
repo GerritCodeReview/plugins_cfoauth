@@ -60,11 +60,17 @@ class CFOAuthService implements OAuthServiceProvider {
 
   @Override
   public OAuthToken getAccessToken(OAuthVerifier rv) {
+    if (rv == null || rv.getValue() == null) {
+      throw new UAAClientException("Must provide an authorization code");
+    }
     return getAsOAuthToken(uaaClient.getAccessToken(rv.getValue()));
   }
 
   @Override
   public OAuthUserInfo getUserInfo(OAuthToken token) throws IOException {
+    if (token == null) {
+      throw new UAAClientException("Must provide an access token");
+    }
     AccessToken accessToken = uaaClient.toAccessToken(token.getToken());
     UserInfo userInfo = accessToken.getUserInfo();
     userInfo.setDisplayName(uaaClient.getDisplayName(token.getToken()));
