@@ -25,6 +25,12 @@ installed. It will create a client with name `gerrit`.
     --secret <client secret>
 ```
 
+Make sure to choose a reasonable access token validity if you want to use
+access tokens to authenticate Git-over-HTTP communication. If tokens expire
+too often using them with a native Git client might be cumbersome.
+On the other side, acccess tokens should be treated like passwords and
+should be changed from time to time for security reasons.
+
 Make sure to choose a strong password for `secret`. Gerrit uses
 this password to obtain access tokens on behalf of its users.
 
@@ -72,4 +78,12 @@ SHA256withRSA signatures are supported given that the underlying Java runtime
 provides the necessary ciphers. If that is not the case you might switch off
 the verification by setting the parameter `verifySignatures` to `false`.
 Note that this is strongly discouraged for security reasons.
+
+If the `auth.gitBasicAuth` parameter is set to `true`, the UAA will be used
+to also authenticate also Git-over-HTTP communication.
+
+For Git-over-HTTP communication the plugin accepts passwords and OAuth2
+access tokens sent in an `Authorization` header following the `BASIC`
+authentication scheme (RFC 2617 section 2). The plugin will pass the
+credentials to UAA for verification.
 
