@@ -16,10 +16,12 @@ package com.googlesource.gerrit.plugins.cfoauth;
 
 import com.google.common.base.CharMatcher;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.auth.oauth.OAuthLoginProvider;
 import com.google.gerrit.extensions.auth.oauth.OAuthServiceProvider;
 import com.google.gerrit.extensions.auth.oauth.OAuthToken;
 import com.google.gerrit.extensions.auth.oauth.OAuthUserInfo;
 import com.google.gerrit.extensions.auth.oauth.OAuthVerifier;
+import com.google.gerrit.reviewdb.client.AccountExternalId;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
@@ -30,9 +32,10 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 
 @Singleton
-class CFOAuthService implements OAuthServiceProvider {
+class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   private static final String OAUTH_VERSION = "2.0";
+  private static final String PROVIDER = "cfoauth";
   private static final String NAME = "Cloud Foundry UAA OAuth2";
 
   private final UAAClient uaaClient;
@@ -78,6 +81,45 @@ class CFOAuthService implements OAuthServiceProvider {
   }
 
   @Override
+  public OAuthUserInfo login(String username, String secret)
+      throws IOException {
+    if (username == null || secret == null) {
+      throw new IOException("Authentication error");
+    }
+    AccessToken accessToken;
+    try {
+      if (uaaClient.isAccessTokenForClient(username, secret)) {
+        // "secret" is an access token for a client, i.e. a
+        // technical user; send it to UAA for verification
+        if (!uaaClient.verifyAccessToken(secret)) {
+          throw new IOException("Authentication error");
+        }
+        return getAsOAuthUserInfo(username);
+      } else {
+        if (uaaClient.isAccessTokenForUser(username, secret)) {
+          // "secret" is an access token for an ordinary user;
+          // send it to UAA for verification
+          if (!uaaClient.verifyAccessToken(secret)) {
+            throw new IOException("Authentication error");
+          }
+          accessToken = uaaClient.toAccessToken(secret);
+        } else {
+          // "secret" is not an access token but likely a password;
+          // send username and password to UAA and try to get an access
+          // token; if that succeeds the user is authenticated
+          accessToken = uaaClient.getAccessToken(username, secret);
+        }
+        UserInfo userInfo = accessToken.getUserInfo();
+        userInfo.setDisplayName(
+            uaaClient.getDisplayName(accessToken.getValue()));
+        return getAsOAuthUserInfo(userInfo);
+      }
+    } catch (UAAClientException e) {
+      throw new IOException("Authentication error", e);
+    }
+  }
+
+  @Override
   public String getVersion() {
     return OAUTH_VERSION;
   }
@@ -85,6 +127,11 @@ class CFOAuthService implements OAuthServiceProvider {
   @Override
   public String getName() {
     return NAME;
+  }
+
+  @Override
+  public String getProviderId() {
+    return PROVIDER;
   }
 
   private static OAuthToken getAsOAuthToken(AccessToken accessToken) {
@@ -95,5 +142,10 @@ class CFOAuthService implements OAuthServiceProvider {
     return new OAuthUserInfo(userInfo.getExternalId(),
         userInfo.getUserName(), userInfo.getEmailAddress(),
         userInfo.getDisplayName(), null);
+  }
+
+  private static OAuthUserInfo getAsOAuthUserInfo(String username) {
+    return new OAuthUserInfo(AccountExternalId.SCHEME_EXTERNAL + username,
+        username, null, null, null);
   }
 }
