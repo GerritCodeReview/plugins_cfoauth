@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d9e9e22c_60b6f2c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "methods are now package-protected",
+      "parentUuid": "d9e9e22c_a0ed9abd",
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d92002e1_e83373d6",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d92002e1_8813d724",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "yes: CFOAuthService",
+      "parentUuid": "d92002e1_e83373d6",
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9e9e22c_00f3a69d",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2015-10-19T20:28:18Z",
       "side": 1,
       "message": "Public method returns a package-private type.\nEven if this class would be made public, a class from another package wouldn\u0027t still be able to invoked this method.",
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e9e22c_80b976b3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "method is now also package-protected",
+      "parentUuid": "d9e9e22c_00f3a69d",
       "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "d9e9e22c_20acea72",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/AccessToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "removed these methods",
+      "parentUuid": "d92002e1_c8302fcd",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d92002e1_28d10bba",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/CFOAuthService.java",
         "patchSetId": 1
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "d9e9e22c_c0e1beb1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/CFOAuthService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "Done, and also for getAsOAuthToken()",
+      "parentUuid": "d92002e1_28d10bba",
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9e9e22c_e0f7a285",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UserInfo.java",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2015-10-19T20:28:18Z",
       "side": 1,
       "message": "general remark: many public methods in a package-private class",
+      "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d92002e1_e8209367",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UserInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9e9e22c_e0f7a285",
       "revId": "4525809a45a047d33c4d8c36309eb3e40a12a4a5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
