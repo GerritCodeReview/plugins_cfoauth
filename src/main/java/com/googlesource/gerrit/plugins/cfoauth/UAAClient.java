@@ -42,11 +42,17 @@ class UAAClient {
   private static final String AUTHORIZE_ENDPOINT = OAUTH_ENDPOINT
       + "authorize?response_type=code&client_id=%s&redirect_uri=%s";
   private static final String TOKEN_ENDPOINT = OAUTH_ENDPOINT + "token";
+  private static final String CHECK_TOKEN_ENDPOINT = "%s/check_token";
   private static final String TOKEN_KEY_ENDPOINT = "%s/token_key";
   private static final String USERINFO_ENDPOINT = "%s/userinfo";
 
   private static final String GRANT_TYPE = "grant_type";
   private static final String BY_AUTHORIZATION_CODE = "authorization_code";
+  private static final String BY_PASSWORD = "password";
+
+  private static final String USERNAME_PARAMETER = "username";
+  private static final String PASSWORD_PARAMETER = "password";
+  private static final String TOKEN_PARAMETER = "token";
 
   private static final String ALG_ATTRIBUTE = "alg";
   private static final String VALUE_ATTRIBUTE = "value";
@@ -54,6 +60,7 @@ class UAAClient {
   private static final String MODULUS_ATTRIBUTE = "n";
   private static final String ACCESS_TOKEN_ATTRIBUTE = "access_token";
   private static final String EXP_ATTRIBUTE = "exp";
+  private static final String SUB_ATTRIBUTE = "sub";
   private static final String USER_NAME_ATTRIBUTE = "user_name";
   private static final String EMAIL_ATTRIBUTE = "email";
   private static final String NAME_ATTRIBUTE = "name";
@@ -67,6 +74,7 @@ class UAAClient {
 
   private final String authorizationEndpoint;
   private final String accessTokenEndpoint;
+  private final String checkTokenEndpoint;
   private final String tokenKeyEndpoint;
   private final String userInfoEndpoint;
 
@@ -90,6 +98,7 @@ class UAAClient {
     this.authorizationEndpoint = String.format(AUTHORIZE_ENDPOINT,
         uaaServerUrl, encode(clientId), encode(redirectUrl));
     this.accessTokenEndpoint = String.format(TOKEN_ENDPOINT, uaaServerUrl);
+    this.checkTokenEndpoint = String.format(CHECK_TOKEN_ENDPOINT, uaaServerUrl);
     this.tokenKeyEndpoint = String.format(TOKEN_KEY_ENDPOINT, uaaServerUrl);
     this.userInfoEndpoint = String.format(USERINFO_ENDPOINT, uaaServerUrl);
   }
@@ -129,6 +138,106 @@ class UAAClient {
           "POST /oauth/token failed: invalid access token response");
     }
     return parseAccessTokenResponse(tokenResponse);
+  }
+
+  /**
+   * Retrieves an access token from the UAA server providing a user name
+   * and password following the "Resource Owner Password Credentials Grant"
+   * scheme of RFC6749 section 4.3.
+   *
+   * @param username the name of the resource owner.
+   * @param password the password of the resource owner.
+   * @return an access token.
+   *
+   * @throws UAAClientException if the UAA request failed.
+   */
+  public AccessToken getAccessToken(String username, String password)
+      throws UAAClientException{
+    if (username == null || password == null) {
+      throw new UAAClientException("Must provide user name and password");
+    }
+    OAuthRequest request = new OAuthRequest(POST, accessTokenEndpoint);
+    request.addHeader(AUTHORIZATION_HEADER, clientCredentials);
+    request.addQuerystringParameter(GRANT_TYPE, BY_PASSWORD);
+    request.addQuerystringParameter(USERNAME_PARAMETER, username);
+    request.addQuerystringParameter(PASSWORD_PARAMETER, password);
+    Response response = request.send();
+    if (response.getCode() == 401) {
+      throw new UAAClientException("Invalid username or password");
+    }
+    if (response.getCode() != 200) {
+      throw new UAAClientException(MessageFormat.format(
+          "POST /oauth/token failed with status {0}", response.getCode()));
+    }
+    String tokenResponse = response.getBody();
+    if (Strings.isNullOrEmpty(tokenResponse)) {
+      throw new UAAClientException(
+          "POST /oauth/token failed: invalid access token response");
+    }
+    return parseAccessTokenResponse(tokenResponse);
+  }
+
+  /**
+   * Verifies the given access token with the UAA server.
+   * This method passes the access token to the <tt>/check_token</tt>
+   * endpoint of the UAA server.
+   *
+   * @param accessToken the access token to verify.
+   * @return <code>true</code> if the token could be verified.
+   *
+   * @throws UAAClientException if the UAA request failed.
+   */
+  public boolean verifyAccessToken(String accessToken)
+      throws UAAClientException {
+    OAuthRequest request = new OAuthRequest(POST, checkTokenEndpoint);
+    request.addHeader(AUTHORIZATION_HEADER, clientCredentials);
+    request.addBodyParameter(TOKEN_PARAMETER, accessToken);
+    Response response = request.send();
+    if (response.getCode() == 400) {
+      return false;
+    }
+    if (response.getCode() != 200) {
+      throw new UAAClientException(MessageFormat.format(
+          "POST /check_token failed with status {0}", response.getCode()));
+    }
+    return true;
+  }
+
+  /**
+   * Checks if the given access token is valid and is owned by the given user.
+   *
+   * @param username the name of the token owner.
+   * @param accessToken the access token to check.
+   *
+   * @return <code>true</code> if the token is valid and belongs to
+   * the given user.
+   */
+  public boolean isAccessTokenForUser(String username, String accessToken) {
+    try {
+      JsonObject jsonWebToken = toJsonWebToken(accessToken);
+      return username.equals(getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE));
+    } catch (UAAClientException e) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if the given access token is valid and is owned by the given client.
+   *
+   * @param clientname the name of the client.
+   * @param accessToken the access token to check.
+   *
+   * @return <code>true</code> if the token is valid and belongs to
+   * the given client.
+   */
+  public boolean isAccessTokenForClient(String clientname, String accessToken) {
+    try {
+      JsonObject jsonWebToken = toJsonWebToken(accessToken);
+      return getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE) == null &&
+          clientname.equals(getAttribute(jsonWebToken, SUB_ATTRIBUTE));
+    } catch (UAAClientException e) {
+      return false;
+    }
   }
 
   /**
