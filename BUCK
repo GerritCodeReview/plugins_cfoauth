@@ -10,6 +10,7 @@ gerrit_plugin(
     'Gerrit-PluginName: cfoauth',
     'Gerrit-ApiType: plugin',
     'Gerrit-ApiVersion: 2.12-SNAPSHOT',
+    'Gerrit-Module: com.googlesource.gerrit.plugins.cfoauth.OAuthModule',
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.cfoauth.HttpModule',
     'Gerrit-InitStep: com.googlesource.gerrit.plugins.cfoauth.InitOAuthConfig',
     'Implementation-Title: Cloud Foundry UAA OAuth 2.0 Authentication Provider',
