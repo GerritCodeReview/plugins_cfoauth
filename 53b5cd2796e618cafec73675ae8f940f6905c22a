@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d92002e1_284aab21",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d92002e1_68db03da",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "53b5cd2796e618cafec73675ae8f940f6905c22a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d92002e1_48e0bf80",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-10-19T20:39:09Z",
       "side": 1,
       "message": "same here... this method is only used from this project and doesn\u0027t need a protection. Protect the caller in CFOAuthService.getUserInfo.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "53b5cd2796e618cafec73675ae8f940f6905c22a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d92002e1_084fe731",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-10-20T12:54:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d92002e1_48e0bf80",
       "range": {
         "startLine": 146,
         "startChar": 0,
