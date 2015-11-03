@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f62eb68f_ab67e9f7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/CFOAuthService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-11-03T16:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16342adb_acb94398",
+      "range": {
+        "startLine": 89,
+        "startChar": 27,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "a2e4ebae76a80ab91c945f59edbff4881b747330",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f62eb68f_cb0eb54a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2015-11-02T15:38:04Z",
       "side": 1,
       "message": "can this catch be more specific?",
+      "revId": "a2e4ebae76a80ab91c945f59edbff4881b747330",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16342adb_2c479332",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/cfoauth/UAAClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1020882
+      },
+      "writtenOn": "2015-11-03T16:32:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f62eb68f_cb0eb54a",
       "revId": "a2e4ebae76a80ab91c945f59edbff4881b747330",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
