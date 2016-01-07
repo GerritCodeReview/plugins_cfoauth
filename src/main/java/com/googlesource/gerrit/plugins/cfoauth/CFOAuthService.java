@@ -76,10 +76,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     if (token == null) {
       throw new UAAClientException("Must provide an access token");
     }
-    AccessToken accessToken = uaaClient.toAccessToken(token.getToken());
-    UserInfo userInfo = accessToken.getUserInfo();
-    userInfo.setDisplayName(uaaClient.getDisplayName(token.getToken()));
-    return getAsOAuthUserInfo(userInfo);
+    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken()));
   }
 
   @Override
@@ -111,10 +108,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
           // token; if that succeeds the user is authenticated
           accessToken = uaaClient.getAccessToken(username, secret);
         }
-        UserInfo userInfo = accessToken.getUserInfo();
-        userInfo.setDisplayName(
-            uaaClient.getDisplayName(accessToken.getValue()));
-        return getAsOAuthUserInfo(userInfo);
+        return getAsOAuthUserInfo(accessToken);
       }
     } catch (UAAClientException e) {
       throw new IOException("Authentication error", e);
@@ -135,7 +129,10 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     return new OAuthToken(accessToken.getValue(), null, null);
   }
 
-  private static OAuthUserInfo getAsOAuthUserInfo(UserInfo userInfo) {
+  private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken) {
+    UserInfo userInfo = accessToken.getUserInfo();
+    userInfo.setDisplayName(
+        uaaClient.getDisplayName(accessToken.getValue()));
     return new OAuthUserInfo(userInfo.getExternalId(),
         userInfo.getUserName(), userInfo.getEmailAddress(),
         userInfo.getDisplayName(), null);
