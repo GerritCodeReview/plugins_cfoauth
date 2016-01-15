@@ -72,7 +72,7 @@ class AccessToken implements Serializable {
    * Returns <code>true</code> if this token has already expired.
    */
   boolean isExpired() {
-    return System.currentTimeMillis() > expiresAt * 1000;
+    return System.currentTimeMillis() / 1000L >  expiresAt;
   }
 
   /**
