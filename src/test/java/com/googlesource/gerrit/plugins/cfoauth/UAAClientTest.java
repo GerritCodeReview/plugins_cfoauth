@@ -78,7 +78,8 @@ public class UAAClientTest {
   private static class UAATestClient extends UAAClient {
 
     public UAATestClient() {
-      super(UAA_SERVER_URL, CLIENT_ID, CLIENT_SECRET, true, REDIRECT_URL);
+      super(UAA_SERVER_URL, CLIENT_ID, CLIENT_SECRET, true, false,
+          REDIRECT_URL);
     }
 
     @Override

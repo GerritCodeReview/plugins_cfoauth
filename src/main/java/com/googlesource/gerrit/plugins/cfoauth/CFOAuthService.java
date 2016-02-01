@@ -22,6 +22,7 @@ import com.google.gerrit.extensions.auth.oauth.OAuthToken;
 import com.google.gerrit.extensions.auth.oauth.OAuthUserInfo;
 import com.google.gerrit.extensions.auth.oauth.OAuthVerifier;
 import com.google.gerrit.reviewdb.client.AccountExternalId;
+import com.google.gerrit.server.config.AuthConfig;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
@@ -41,6 +42,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   @Inject
   CFOAuthService(PluginConfigFactory cfgFactory,
+      AuthConfig authConfig,
       @PluginName String pluginName,
       @CanonicalWebUrl Provider<String> urlProvider) {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
@@ -52,6 +54,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
         cfg.getString(InitOAuthConfig.CLIENT_ID),
         cfg.getString(InitOAuthConfig.CLIENT_SECRET),
         cfg.getBoolean(InitOAuthConfig.VERIFIY_SIGNATURES, true),
+        authConfig.isUserNameToLowerCase(),
         redirectUrl);
   }
 

@@ -34,6 +34,7 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 
 class UAAClient {
 
@@ -79,6 +80,7 @@ class UAAClient {
   private final String userInfoEndpoint;
 
   private final boolean verifySignatures;
+  private final boolean userNameToLowerCase;
 
   /**
    * Lazily initialized and may be updated from time to time
@@ -90,10 +92,12 @@ class UAAClient {
       String clientId,
       String clientSecret,
       boolean verifySignatures,
+      boolean userNameToLowerCase,
       String redirectUrl) {
     this.clientCredentials = BASIC_AUTHENTICATION + " "
       + encodeBase64(clientId + ":" + clientSecret);
     this.verifySignatures = verifySignatures;
+    this.userNameToLowerCase = userNameToLowerCase;
     this.redirectUrl = redirectUrl;
     this.authorizationEndpoint = String.format(AUTHORIZE_ENDPOINT,
         uaaServerUrl, encode(clientId), encode(redirectUrl));
@@ -215,7 +219,8 @@ class UAAClient {
   public boolean isAccessTokenForUser(String username, String accessToken) {
     try {
       JsonObject jsonWebToken = toJsonWebToken(accessToken);
-      return username.equals(getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE));
+      return equalsAdjustCase(username,
+          getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE));
     } catch (UAAClientException e) {
       return false;
     }
@@ -234,7 +239,8 @@ class UAAClient {
     try {
       JsonObject jsonWebToken = toJsonWebToken(accessToken);
       return getAttribute(jsonWebToken, USER_NAME_ATTRIBUTE) == null &&
-          clientname.equals(getAttribute(jsonWebToken, SUB_ATTRIBUTE));
+          equalsAdjustCase(clientname,
+              getAttribute(jsonWebToken, SUB_ATTRIBUTE));
     } catch (UAAClientException e) {
       return false;
     }
@@ -259,6 +265,9 @@ class UAAClient {
     if (username == null) {
       throw new UAAClientException(
           "Invalid token: missing or invalid 'user_name' attribute");
+    }
+    if (userNameToLowerCase) {
+      username = lowercase(username);
     }
     String emailAddress = getAttribute(jsonWebToken, EMAIL_ATTRIBUTE);
     if (emailAddress == null) {
@@ -390,6 +399,16 @@ class UAAClient {
           "Can't extract a token: missing or invalid 'access_token' attribute");
     }
     return accessToken;
+  }
+
+  private boolean equalsAdjustCase(String left, String right) {
+    return userNameToLowerCase
+        ? lowercase(left).equals(lowercase(right))
+        : left.equals(right);
+  }
+
+  private static String lowercase(String s) {
+    return s.toLowerCase(Locale.US);
   }
 
   private String decodeBase64(String s) {
