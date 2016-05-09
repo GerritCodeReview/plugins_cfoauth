@@ -36,6 +36,7 @@ class InitOAuthConfig implements InitStep {
   private final InitFlags flags;
   private final ConsoleUI ui;
   private final Section cfg;
+  private final String redirectUrl;
 
   @Inject
   InitOAuthConfig(InitFlags flags, ConsoleUI ui,
@@ -44,6 +45,7 @@ class InitOAuthConfig implements InitStep {
     this.flags = flags;
     this.ui = ui;
     this.cfg = sections.get(PLUGIN_SECTION, pluginName);
+    this.redirectUrl = getRedirectUrl(sections);
   }
 
   @Override
@@ -60,7 +62,13 @@ class InitOAuthConfig implements InitStep {
     cfg.set(VERIFIY_SIGNATURES, Boolean.toString(
         ui.yesno(true, "Verify token signatures", VERIFIY_SIGNATURES)));
     flags.cfg.setString("auth", null, "logouturl", CharMatcher.is('/')
-        .trimTrailingFrom(cfg.get(SERVER_URL)) + "/logout.do");
+        .trimTrailingFrom(cfg.get(SERVER_URL)) + "/logout.do?redirect="
+            + redirectUrl);
+  }
+
+  private static String getRedirectUrl(Section.Factory sections) {
+    Section gerrit = sections.get("gerrit", null);
+    return CharMatcher.is('/').trimTrailingFrom(gerrit.get("canonicalWebUrl"));
   }
 
   @Override
