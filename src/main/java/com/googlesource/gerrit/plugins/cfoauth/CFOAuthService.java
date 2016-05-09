@@ -39,6 +39,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   private static final String NAME = "Cloud Foundry UAA OAuth2";
 
   private final UAAClient uaaClient;
+  private final String providerId;
 
   @Inject
   CFOAuthService(PluginConfigFactory cfgFactory,
@@ -56,6 +57,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
         cfg.getBoolean(InitOAuthConfig.VERIFIY_SIGNATURES, true),
         authConfig.isUserNameToLowerCase(),
         redirectUrl);
+    this.providerId = pluginName + ":" + OAuthModule.EXPORT_ID;
   }
 
   @Override
@@ -131,8 +133,9 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     return NAME;
   }
 
-  private static OAuthToken getAsOAuthToken(AccessToken accessToken) {
-    return new OAuthToken(accessToken.getValue(), null, null);
+  private OAuthToken getAsOAuthToken(AccessToken accessToken) {
+    return new OAuthToken(accessToken.getValue(), null, null,
+        accessToken.getExpiresAt() * 1000, providerId);
   }
 
   private static OAuthUserInfo getAsOAuthUserInfo(UserInfo userInfo) {
