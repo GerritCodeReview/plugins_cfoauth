@@ -39,7 +39,7 @@ class HttpModule extends HttpPluginModule {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     if (cfg.getString(InitOAuthConfig.CLIENT_ID) != null) {
       bind(OAuthServiceProvider.class)
-       .annotatedWith(Exports.named(pluginName))
+       .annotatedWith(Exports.named(OAuthModule.EXPORT_ID))
        .to(CFOAuthService.class);
     }
   }

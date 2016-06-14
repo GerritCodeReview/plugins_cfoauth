@@ -24,6 +24,8 @@ import com.google.inject.Inject;
 
 class OAuthModule extends AbstractModule {
 
+  static final String EXPORT_ID = "cfoauth";
+
   private final PluginConfigFactory cfgFactory;
   private final String pluginName;
 
@@ -39,7 +41,7 @@ class OAuthModule extends AbstractModule {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     if (cfg.getString(InitOAuthConfig.CLIENT_ID) != null) {
       bind(OAuthLoginProvider.class)
-       .annotatedWith(Exports.named(pluginName))
+       .annotatedWith(Exports.named(EXPORT_ID))
        .to(CFOAuthService.class);
     }
   }
