@@ -16,11 +16,11 @@ package com.googlesource.gerrit.plugins.cfoauth;
 
 import com.google.common.base.CharMatcher;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.client.AuthType;
 import com.google.gerrit.pgm.init.api.ConsoleUI;
 import com.google.gerrit.pgm.init.api.InitFlags;
 import com.google.gerrit.pgm.init.api.InitStep;
 import com.google.gerrit.pgm.init.api.Section;
-import com.google.gerrit.reviewdb.client.AuthType;
 import com.google.inject.Inject;
 
 class InitOAuthConfig implements InitStep {
