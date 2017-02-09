@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6577e1b8_9e125cc5",
+        "filename": "BUILD",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-02-09T11:06:46Z",
+      "side": 1,
+      "message": "No never link for test dependencies. Remove never link.",
+      "range": {
+        "startLine": 34,
+        "startChar": 28,
+        "endLine": 34,
+        "endChar": 38
+      },
+      "revId": "cf392baba1d8100508429765c16267a5ba067685",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
