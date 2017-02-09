@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ef8d0a2_e033b366",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "a7bef4d0_56d612d4",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efe8c6e8_090f6fd6",
         "filename": "BUILD",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-09T09:33:07Z",
       "side": 1,
       "message": "Not needed. This already exposed by gerrit Plugin API. Remove.",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "539dd9cc_ee6279ba",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "efe8c6e8_090f6fd6",
       "range": {
         "startLine": 25,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7b5316df_253d0720",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "bbd63853_2a7fa439",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 46
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2745de65_501198b1",
         "filename": "BUILD",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2017-02-09T09:33:07Z",
       "side": 1,
       "message": "external package: \"@scribe//jar\".",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5581fbcf_c6f9e2f7",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "2745de65_501198b1",
       "range": {
         "startLine": 37,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a3970a7b_8dd14127",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "deb22c8e_1c9e99a1",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df24bc3f_472e8894",
         "filename": "BUILD",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2017-02-09T09:33:07Z",
       "side": 1,
       "message": "external package: \"@commons_codec//jar\".",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfc4ada3_c143e4d0",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "df24bc3f_472e8894",
       "range": {
         "startLine": 40,
         "startChar": 8,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "013a8d77_cad03d8e",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "8b439928_46b91afd",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef8ae6be_db2fd44e",
         "filename": "lib/BUILD",
         "patchSetId": 4
@@ -174,6 +342,24 @@
       "writtenOn": "2017-02-09T09:33:07Z",
       "side": 1,
       "message": "Remove that. See how I did it in oauth plugin.",
+      "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da17b8f2_814b84d8",
+        "filename": "lib/BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-02-09T10:57:10Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "ef8ae6be_db2fd44e",
       "revId": "36d6a45c8464695a51c6252c2c86e4583d138b26",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
