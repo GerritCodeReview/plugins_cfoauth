@@ -378,10 +378,10 @@ class UAAClient {
       throw new UAAClientException(
           "GET /uaa/token_key failed: missing \"alg\" attribute");
     }
-    if ("HMACSHA256".equals(alg)) {
+    if ("HS256".equals(alg) || "HMACSHA256".equals(alg)) {
       return new HMACSHA256SignatureVerifier(
           getAttribute(content, VALUE_ATTRIBUTE));
-    } else if ("SHA256withRSA".equals(alg)) {
+    } else if ("RS256".equals(alg) || "SHA256withRSA".equals(alg)) {
       return new SHA265WithRSASignatureVerifier(
           getAttribute(content, MODULUS_ATTRIBUTE),
           getAttribute(content, PUBLIC_EXPONENT_ATTRIBUTE));
