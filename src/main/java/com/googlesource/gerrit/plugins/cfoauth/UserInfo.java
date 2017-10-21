@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.cfoauth;
 
-import com.google.gerrit.reviewdb.client.AccountExternalId;
+import static com.google.gerrit.server.account.externalids.ExternalId.SCHEME_EXTERNAL;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -42,7 +42,7 @@ class UserInfo implements Serializable {
       throw new IllegalArgumentException("emailAddress must not be null");
     }
     this.username = username;
-    this.externalId = AccountExternalId.SCHEME_EXTERNAL + username;
+    this.externalId = SCHEME_EXTERNAL + username;
     this.emailAddress = emailAddress;
     this.displayName = username;
   }

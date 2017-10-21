@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.cfoauth;
 
+import static com.google.gerrit.server.account.externalids.ExternalId.SCHEME_EXTERNAL;
+
 import com.google.common.base.CharMatcher;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.auth.oauth.OAuthLoginProvider;
@@ -21,7 +23,6 @@ import com.google.gerrit.extensions.auth.oauth.OAuthServiceProvider;
 import com.google.gerrit.extensions.auth.oauth.OAuthToken;
 import com.google.gerrit.extensions.auth.oauth.OAuthUserInfo;
 import com.google.gerrit.extensions.auth.oauth.OAuthVerifier;
-import com.google.gerrit.reviewdb.client.AccountExternalId;
 import com.google.gerrit.server.config.AuthConfig;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.config.PluginConfig;
@@ -142,7 +143,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private static OAuthUserInfo getAsOAuthUserInfo(String username) {
-    return new OAuthUserInfo(AccountExternalId.SCHEME_EXTERNAL + username,
+    return new OAuthUserInfo(SCHEME_EXTERNAL + username,
         username, null, null, null);
   }
 }
