@@ -143,7 +143,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private static OAuthUserInfo getAsOAuthUserInfo(String username) {
-    return new OAuthUserInfo(SCHEME_EXTERNAL + username,
+    return new OAuthUserInfo(SCHEME_EXTERNAL + ":" + username,
         username, null, null, null);
   }
 }
