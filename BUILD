@@ -6,6 +6,14 @@ load(
     "PLUGIN_TEST_DEPS",
 )
 
+TEST_SRCS = "src/test/java/**/*Test.java"
+
+TEST_DEPS = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
+        ":cfoauth__plugin",
+        "@scribe//jar",
+        "@commons_codec//jar",
+]
+
 gerrit_plugin(
     name = "cfoauth",
     srcs = glob(["src/main/java/**/*.java"]),
@@ -24,13 +32,22 @@ gerrit_plugin(
     ],
 )
 
+java_library(
+    name = "testutils",
+    testonly = 1,
+    srcs = glob(
+        include = ["src/test/java/**/*.java"],
+        exclude = [TEST_SRCS],
+    ),
+    deps = TEST_DEPS,
+)
+
 junit_tests(
     name = "cfoauth_tests",
-    srcs = glob(["src/test/java/**/*.java"]),
+    testonly = 1,
+    srcs = glob([TEST_SRCS]),
     tags = ["cfoauth"],
-    deps = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
-        ":cfoauth__plugin",
-        "@scribe//jar",
-        "@commons_codec//jar",
+    deps = TEST_DEPS + [
+        ":testutils",
     ],
 )
