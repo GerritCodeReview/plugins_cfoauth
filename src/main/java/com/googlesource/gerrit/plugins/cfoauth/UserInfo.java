@@ -42,7 +42,7 @@ class UserInfo implements Serializable {
       throw new IllegalArgumentException("emailAddress must not be null");
     }
     this.username = username;
-    this.externalId = SCHEME_EXTERNAL + username;
+    this.externalId = SCHEME_EXTERNAL + ":" + username;
     this.emailAddress = emailAddress;
     this.displayName = username;
   }
