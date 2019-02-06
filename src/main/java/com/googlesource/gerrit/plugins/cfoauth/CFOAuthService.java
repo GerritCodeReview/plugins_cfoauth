@@ -38,6 +38,10 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   private static final String OAUTH_VERSION = "2.0";
   private static final String NAME = "Cloud Foundry UAA OAuth2";
+  // The Gerrit OAuth extension point follows OAuth 1.0 and expects a token secret.
+  // OAuth 2.0, which is used by UAA, does not use token secrets anymore. Thus, an
+  // empty string is provided instead.
+  private static final String EMPTY_SECRET = "";
 
   private final UAAClient uaaClient;
   private final String providerId;
@@ -79,7 +83,8 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     if (token == null) {
       throw new UAAClientException("Must provide an access token");
     }
-    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken()));
+    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken(),
+      token.getRaw()));
   }
 
   @Override
@@ -104,7 +109,12 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
           if (!uaaClient.verifyAccessToken(secret)) {
             throw new IOException("Authentication error");
           }
-          accessToken = uaaClient.toAccessToken(secret);
+          // TODO: If the accessToken created here is handed to the
+          // extension endpoint, this will cause a server error. This
+          // should usually not be happening, but if we can get a raw
+          // response of a request to the /token-endpoint of the UAA
+          // server, we should use it instead of null.
+          accessToken = uaaClient.toAccessToken(secret, null);
         } else {
           // "secret" is not an access token but likely a password;
           // send username and password to UAA and try to get an access
@@ -129,8 +139,9 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private OAuthToken getAsOAuthToken(AccessToken accessToken) {
-    return new OAuthToken(accessToken.getValue(), null, null,
-        accessToken.getExpiresAt() * 1000, providerId);
+    return new OAuthToken(accessToken.getValue(), EMPTY_SECRET,
+        accessToken.getRaw(), accessToken.getExpiresAt() * 1000,
+        providerId);
   }
 
   private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken) {

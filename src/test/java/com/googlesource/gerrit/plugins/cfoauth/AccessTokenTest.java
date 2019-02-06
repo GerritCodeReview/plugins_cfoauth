@@ -25,17 +25,21 @@ public class AccessTokenTest {
   private static final String TOKEN_VALUE = "tokenvalue";
   private static final String ANOTHER_TOKEN_VALUE = "anothertokenvalue";
   private static final long EXPIRES_AT = 4711L;
+  private static final String RAW_RESPONSE = "{"
+	      + "\"access_token\":\"" + TOKEN_VALUE + "\","
+	      + "\"token_type\":\"bearer\","
+	      + "\"expires_in\":3600}";
 
   private static final AccessToken TOKEN =
-      new AccessToken(TOKEN_VALUE, FOO, BAR, EXPIRES_AT);
+      new AccessToken(TOKEN_VALUE, FOO, BAR, EXPIRES_AT, RAW_RESPONSE);
   private static AccessToken TOKEN_DIFFERENT_VALUE =
-      new AccessToken(ANOTHER_TOKEN_VALUE, FOO, BAR, EXPIRES_AT);
+      new AccessToken(ANOTHER_TOKEN_VALUE, FOO, BAR, EXPIRES_AT, RAW_RESPONSE);
   private static AccessToken TOKEN_DIFFERENT_NAME =
-      new AccessToken(TOKEN_VALUE, ANOTHER_FOO, BAR, EXPIRES_AT);
+      new AccessToken(TOKEN_VALUE, ANOTHER_FOO, BAR, EXPIRES_AT, RAW_RESPONSE);
   private static AccessToken TOKEN_DIFFERENT_EMAIL =
-      new AccessToken(TOKEN_VALUE, FOO, ANOTHER_BAR, EXPIRES_AT);
+      new AccessToken(TOKEN_VALUE, FOO, ANOTHER_BAR, EXPIRES_AT, RAW_RESPONSE);
   private static final AccessToken TOKEN_DIFFERENT_EXPIRES =
-      new AccessToken(TOKEN_VALUE, FOO, BAR, EXPIRES_AT + 1);
+      new AccessToken(TOKEN_VALUE, FOO, BAR, EXPIRES_AT + 1, RAW_RESPONSE);
 
   @Test
   public void testCreateAccessToken() throws Exception {
@@ -52,7 +56,7 @@ public class AccessTokenTest {
   public void testExpiresAt() throws Exception {
     assertTrue(TOKEN.isExpired());
     assertFalse(new AccessToken(TOKEN_VALUE, FOO, BAR,
-        System.currentTimeMillis() + 10).isExpired());
+        System.currentTimeMillis() + 10, RAW_RESPONSE).isExpired());
   }
 
   @Test
@@ -71,7 +75,7 @@ public class AccessTokenTest {
 
   @Test(expected=IllegalArgumentException.class)
   public void testMissingValue() throws Exception {
-    new AccessToken(null, FOO, BAR, EXPIRES_AT);
+    new AccessToken(null, FOO, BAR, EXPIRES_AT, RAW_RESPONSE);
   }
 
   private void assertAccessToken(AccessToken accessToken, String username,
