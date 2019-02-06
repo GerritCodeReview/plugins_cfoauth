@@ -41,13 +41,14 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   private final UAAClient uaaClient;
   private final String providerId;
+  private PluginConfig cfg;
 
   @Inject
   CFOAuthService(PluginConfigFactory cfgFactory,
       AuthConfig authConfig,
       @PluginName String pluginName,
       @CanonicalWebUrl Provider<String> urlProvider) {
-    PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
+    cfg = cfgFactory.getFromGerritConfig(pluginName);
     String uaaServerUrl = CharMatcher.is('/')
         .trimTrailingFrom(cfg.getString(InitOAuthConfig.SERVER_URL));
     String redirectUrl = CharMatcher.is('/')
@@ -129,8 +130,10 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private OAuthToken getAsOAuthToken(AccessToken accessToken) {
-    return new OAuthToken(accessToken.getValue(), null, null,
-        accessToken.getExpiresAt() * 1000, providerId);
+    return new OAuthToken(accessToken.getValue(),
+        cfg.getString(InitOAuthConfig.CLIENT_SECRET),
+        accessToken.toString(), accessToken.getExpiresAt() * 1000,
+        providerId);
   }
 
   private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken) {
