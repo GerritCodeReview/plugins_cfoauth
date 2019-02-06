@@ -21,6 +21,7 @@ class AccessToken implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  private final String raw;
   private final UserInfo userInfo;
   private final String value;
   private final long expiresAt;
@@ -31,26 +32,35 @@ class AccessToken implements Serializable {
   static final AccessToken UNDEFINED = new AccessToken();
 
   private AccessToken() {
-    this("", "", "", 0);
+    this("", "", "", 0, "");
   }
 
   /**
    * Creates an access token.
    *
-   * @param value the raw value of the access token.
+   * @param value the raw access token.
    * @param username the name of the token owner.
    * @param emailAddress the email address of the token owner.
    * @param expiresAt time to expiration of this tokens in seconds
    * since midnight January, 1st, 1970.
+   * @param raw the raw response body of the UAA server.
    */
   AccessToken(String value, String username, String emailAddress,
-      long expiresAt) {
+      long expiresAt, String raw) {
     if (value == null) {
       throw new IllegalArgumentException("token value must not be null");
     }
     this.userInfo = new UserInfo(username, emailAddress);
     this.value = value;
     this.expiresAt = expiresAt;
+    this.raw = raw;
+  }
+
+  /**
+   * Returns the raw response body from the UAA server.
+   */
+  public String getRaw() {
+	return raw;
   }
 
   /**

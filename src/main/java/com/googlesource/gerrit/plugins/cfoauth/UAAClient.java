@@ -257,7 +257,7 @@ class UAAClient {
    * @throws UAAClientException if the given access token is not
    * valid or could not be converted into an <code>AccessToken</code>.
    */
-  public AccessToken toAccessToken(String accessToken)
+  public AccessToken toAccessToken(String accessToken, String rawResponse)
       throws UAAClientException {
     JsonObject jsonWebToken = toJsonWebToken(accessToken);
     long expiresAt = getLongAttribute(jsonWebToken, EXP_ATTRIBUTE, 0);
@@ -274,7 +274,8 @@ class UAAClient {
       throw new UAAClientException(
           "Invalid token: missing or invalid 'email' attribute");
     }
-    return new AccessToken(accessToken, username, emailAddress, expiresAt);
+    return new AccessToken(accessToken, username, emailAddress, expiresAt,
+      rawResponse);
   }
 
   /**
@@ -303,7 +304,7 @@ class UAAClient {
   @VisibleForTesting
   AccessToken parseAccessTokenResponse(String tokenResponse)
       throws UAAClientException {
-    return toAccessToken(getAccessTokenAttribute(tokenResponse));
+    return toAccessToken(getAccessTokenAttribute(tokenResponse), tokenResponse);
   }
 
   @VisibleForTesting
