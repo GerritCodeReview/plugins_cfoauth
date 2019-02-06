@@ -134,7 +134,8 @@ public class UAAClientTest {
 
   @Test
   public void testGetAsAccessToken() throws Exception {
-    AccessToken accessToken = client.toAccessToken(HS256_TEST_TOKEN);
+    AccessToken accessToken = client.toAccessToken(HS256_TEST_TOKEN,
+        HS256_ACCESS_TOKEN_RESPONSE);
     assertHS266AccessToken(accessToken);
   }
 
