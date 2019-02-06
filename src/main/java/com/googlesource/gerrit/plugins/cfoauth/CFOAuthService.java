@@ -38,6 +38,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   private static final String OAUTH_VERSION = "2.0";
   private static final String NAME = "Cloud Foundry UAA OAuth2";
+  private static final String EMPTY_STRING = "";
 
   private final UAAClient uaaClient;
   private final String providerId;
@@ -79,7 +80,8 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     if (token == null) {
       throw new UAAClientException("Must provide an access token");
     }
-    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken()));
+    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken(),
+      token.getRaw()));
   }
 
   @Override
@@ -104,7 +106,7 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
           if (!uaaClient.verifyAccessToken(secret)) {
             throw new IOException("Authentication error");
           }
-          accessToken = uaaClient.toAccessToken(secret);
+          accessToken = uaaClient.toAccessToken(secret, EMPTY_STRING);
         } else {
           // "secret" is not an access token but likely a password;
           // send username and password to UAA and try to get an access
@@ -129,8 +131,12 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private OAuthToken getAsOAuthToken(AccessToken accessToken) {
-    return new OAuthToken(accessToken.getValue(), null, null,
-        accessToken.getExpiresAt() * 1000, providerId);
+    // The Gerrit OAuth extension point follows OAuth 1.0 and expects a token secret.
+    // OAuth 2.0, which is used by UAA, does not use token secrets anymore. Thus, an
+    // empty string is provided instead.
+    return new OAuthToken(accessToken.getValue(), EMPTY_STRING,
+        accessToken.getRaw(), accessToken.getExpiresAt() * 1000,
+        providerId);
   }
 
   private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken) {
