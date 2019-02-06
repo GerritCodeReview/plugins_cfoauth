@@ -41,13 +41,14 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
 
   private final UAAClient uaaClient;
   private final String providerId;
+  private PluginConfig cfg;
 
   @Inject
   CFOAuthService(PluginConfigFactory cfgFactory,
       AuthConfig authConfig,
       @PluginName String pluginName,
       @CanonicalWebUrl Provider<String> urlProvider) {
-    PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
+    cfg = cfgFactory.getFromGerritConfig(pluginName);
     String uaaServerUrl = CharMatcher.is('/')
         .trimTrailingFrom(cfg.getString(InitOAuthConfig.SERVER_URL));
     String redirectUrl = CharMatcher.is('/')
@@ -79,7 +80,8 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
     if (token == null) {
       throw new UAAClientException("Must provide an access token");
     }
-    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken()));
+    return getAsOAuthUserInfo(uaaClient.toAccessToken(token.getToken(),
+      token.getRaw()));
   }
 
   @Override
@@ -104,7 +106,12 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
           if (!uaaClient.verifyAccessToken(secret)) {
             throw new IOException("Authentication error");
           }
-          accessToken = uaaClient.toAccessToken(secret);
+          // TODO: If the accessToken created here is handed to the
+          // extension endpoint, this will cause a server error. This
+          // should usually not be happening, but if we can get a raw
+          // response of a request to the /token-endpoint of the UAA
+          // server, we should use it instead of null.
+          accessToken = uaaClient.toAccessToken(secret, null);
         } else {
           // "secret" is not an access token but likely a password;
           // send username and password to UAA and try to get an access
@@ -129,8 +136,10 @@ class CFOAuthService implements OAuthServiceProvider, OAuthLoginProvider {
   }
 
   private OAuthToken getAsOAuthToken(AccessToken accessToken) {
-    return new OAuthToken(accessToken.getValue(), null, null,
-        accessToken.getExpiresAt() * 1000, providerId);
+    return new OAuthToken(accessToken.getValue(),
+        cfg.getString(InitOAuthConfig.CLIENT_SECRET),
+        accessToken.getRaw(), accessToken.getExpiresAt() * 1000,
+        providerId);
   }
 
   private OAuthUserInfo getAsOAuthUserInfo(AccessToken accessToken) {
